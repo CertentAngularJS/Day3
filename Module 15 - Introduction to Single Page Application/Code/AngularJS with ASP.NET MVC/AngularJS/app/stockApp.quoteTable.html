@@ -1,0 +1,11 @@
+﻿<table>
+    <thead>
+        <tr><th>Symbol</th><th>Change</th></tr>
+    </thead>
+    <thead>
+        <tr ng-repeat="quote in quotes | upFilter">
+            <td>{{quote.symbol}}</td>
+            <td>{{quote.Change}}</td>
+        </tr>
+    </thead>
+</table>

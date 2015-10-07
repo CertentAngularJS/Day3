@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Module 6 & 7 - AngularJS Views</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script>
+        angular.module("simpleApp", [])
+            .controller("SimpleController", SimpleController);
+        function SimpleController($scope) {
+            // One Time Binding
+            $scope.test = 1;
+
+            // ng-show ng-hide ng-if
+            $scope.isVisible = true;
+            $scope.toggleVisibility = function () { $scope.isVisible = !$scope.isVisible; }
+
+            // ng-class
+            $scope.classList = "bold red";
+            $scope.classArray = ["bold", "red"];
+            $scope.isBold = true;
+            $scope.isRed = true;
+
+            // ng-repeat
+            $scope.colors = ["Red", "Green", "Blue"];
+            $scope.newColor = "";
+            $scope.addColor = function () { $scope.colors.push($scope.newColor); }
+            $scope.deleteColor = function (index) { $scope.colors.splice(index, 1); }
+
+            // ng-switch
+            $scope.page = 1;
+        }
+    </script>
+    <style>
+        .red { color: red; }
+        .bold { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Module 6 & 7 - AngularJS Views</h1>
+
+    <div ng-app="simpleApp" ng-controller="SimpleController" ng-cloak>
+        {{::test}}
+        <button ng-click="test = test + 1">Increment</button><br />
+
+        <br />
+        <button ng-click="toggleVisibility()">Toggle Visibility</button>
+        <div ng-show="isVisible">ng-show</div>
+        <div ng-hide="isVisible">ng-hide</div>
+        <div ng-if="isVisible">ng-if</div>
+        
+        <br />
+        <div class="{{classList}}">class with binding and space-delimited class names</div>
+        <div ng-class="classList">ng-class with space-delimited class names</div>
+        <div ng-class="classArray">ng-class with class array</div>
+        <div ng-class="{bold: isBold, red: isRed}">ng-class with JS Object</div>
+
+        <br />
+        <input type="text" ng-model="newColor" />
+        <button ng-click="addColor()">Add Color</button>
+        <ul>
+            <li ng-repeat="color in colors">
+                {{::color}} 
+                <button ng-click="deleteColor($index)">Delete Color</button>
+            </li>
+        </ul>
+
+        <br />
+        <div ng-switch on="page">
+            <div ng-switch-when="1">Page 1</div>
+            <div ng-switch-when="2">Page 2</div>
+            <div ng-switch-when="3">Page 3</div>
+        </div>
+        <button ng-click="page = page % 3 + 1">Next Page</button>
+    </div>
+</body>
+</html>
+

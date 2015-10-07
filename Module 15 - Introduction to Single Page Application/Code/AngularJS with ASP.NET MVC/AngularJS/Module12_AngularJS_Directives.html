@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script>
+        angular.module("simpleApp", [])
+            .controller("SimpleController", SimpleController)
+            .directive("simpleDirective", simpleDirective)
+            .directive("defaultScopeDirective", defaultScopeDirective)
+            .directive("isolateScopeDirective", isolateScopeDirective)
+            .directive("borderDirective", borderDirective)
+            .directive("liveBorderDirective", liveBorderDirective)
+            .directive("transcludeDirective", transcludeDirective)
+            .directive("callbackDirective", callbackDirective)
+        ;
+        function SimpleController($scope) {
+            $scope.message = "Class";
+            $scope.message2 = "Everyone";
+            $scope.clickHandler = function (message) { alert(message); }
+        }
+
+        function simpleDirective() {
+            return { template: "Hello World" };
+        }
+
+        function defaultScopeDirective() {
+            return { template: "Hello {{message}}" };
+        }
+
+        function isolateScopeDirective() {
+            return {
+                template: "Hello {{message}}",
+                scope: { message: "=" }
+            };
+        }
+
+        function externalTemplateDirective() {
+            return {
+                templateUrl: "externalTemplateDirective.html",
+                scope: { message: "=" }
+            };
+        }
+
+        function borderDirective() {
+            return {
+                link: function (scope, element, attrs) {
+                    element.attr("style", "border: thin solid red");
+                }
+                //, template: "Hello"
+            };
+        }
+
+        function liveBorderDirective() {
+            return {
+                link: function (scope, element, attrs) {
+                    element.on("mouseenter", function () {
+                        element.attr("style", "border: thin solid red");
+                    });
+                    element.on("mouseleave", function () {
+                        element.attr("style", "");
+                    });
+                }
+            };
+        }
+
+        function transcludeDirective() {
+            return {
+                transclude: true,
+                template: [
+                    "<a href='https://angularjs.org' ng-transclude>",
+                    "</a>"
+                ].join(" ")
+            };
+        }
+
+        function callbackDirective() {
+            return {
+                scope: { callback: "&" },
+                link: function (scope, element, attrs) {
+                    element.on("click", function () {
+                        scope.callback();
+                    });
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to AngularJS!</h1>
+    <div ng-app="simpleApp" ng-controller="SimpleController">
+        <!--
+        <div simple-directive></div>
+        <simple-directive></simple-directive>
+        <data-simple-directive></data-simple-directive>
+        <simple:directive></simple:directive>
+        <simple_directive></simple_directive>
+        <x-simple-directive></x-simple-directive>
+        
+        <div default-scope-directive></div>    
+        <default-scope-directive></default-scope-directive>    
+
+        <div isolate-scope-directive message="message"></div>    
+        <div isolate-scope-directive message="message2"></div>
+        <isolate-scope-directive message="message2"></isolate-scope-directive>
+
+        <div border-directive>World</div>
+        <border-directive>World</border-directive>
+
+        <div live-border-directive>World</div>
+        <live-border-directive>World</live-border-directive>
+
+        <div transclude-directive>AngularJS</div>
+        <transclude-directive>AngularJS</transclude-directive>
+
+        <div callback-directive callback="clickHandler('Hello')">Click Me</div>
+        <callback-directive callback="clickHandler('Hello')">Click Me</callback-directive>
+
+        -->
+    </div>
+</body>
+</html>
+

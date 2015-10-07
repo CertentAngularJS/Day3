@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Module 8 - AngularJS Forms</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script>
+        angular.module("simpleApp", [])
+            .controller("SimpleController", SimpleController);
+        function SimpleController($scope) {
+            // Form Data
+            $scope.user = { age: 0, name: "", spamMe: "Yes", rememberMe: true, state: "CA" };
+
+            // Validation
+            $scope.postData = function () {
+                $scope.nameInvalid = false;
+                $scope.ageInvalid = false;
+                if ($scope.validationForm.$valid) console.log("Form is Valid, Post Away!");
+                else {
+                    if ($scope.validationForm.userName.$invalid) $scope.nameInvalid = true;
+                    if ($scope.validationForm.userAge.$invalid) $scope.ageInvalid = true;
+                }
+            }
+        }
+    </script>
+    <style>
+        .invalid {background: red; }
+    </style>
+</head>
+<body>
+    <h1>Module 8 - AngularJS Forms</h1>
+
+    <div ng-app="simpleApp" ng-controller="SimpleController">
+        Name = {{user.name}}<br />
+        Age =  {{user.age}}<br />
+        Spam Me = {{user.spamMe}}<br />
+        Remember Me = {{user.rememberMe}}<br />
+        State = {{user.state}}<br />
+
+        <br />
+        Name <input type="text" ng-model="user.name" ng-trim="true" />
+        Age <input type="number" ng-model="user.age" /><br />
+
+        <input type="radio" ng-model="user.spamMe" value="Yes" /> Yes
+        <input type="radio" ng-model="user.spamMe" value="No" /> No<br />
+
+        <input type="checkbox" ng-model="user.rememberMe" /> Remember Me<br />
+        <input type="checkbox" ng-model="user.spamMe" ng-true-value="'Yes'" ng-false-value="'No'"/> Spam Me<br />
+
+        <select ng-model="user.state">
+            <option value="CA">California</option>
+            <option value="FL">Florida</option>
+            <option value="OR">Oregon</option>
+        </select>
+
+        <br />
+        <input type="submit" ng-disabled="user.age < 21" />
+
+        <br /><br />
+        <form novalidate name="validationForm">
+            Name <input type="text" ng-model="user.name" name="userName" required ng-class="{invalid: nameInvalid}"/>
+            <span ng-if="nameInvalid">Invalid Name</span><br />
+            Age <input type="number" ng-model="user.age" name="userAge" min="18" ng-class="{invalid: ageInvalid}"/>
+            <span ng-if="ageInvalid">Invalid Age</span><br />
+        </form>
+        <button ng-click="postData()">Post</button>
+        <button ng-disabled="validationForm.$invalid">Post</button>
+    </div>
+</body>
+</html>
+

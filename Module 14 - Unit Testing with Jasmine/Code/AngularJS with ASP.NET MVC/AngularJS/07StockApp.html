@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock App</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script src="app/stockApp.js"></script>
+    <script src="app/stockApp.controller3.js"></script>
+    <script src="app/stockApp.constant.js"></script>
+    <script src="app/stockApp.upFilter.js"></script>
+    <script src="app/stockApp.quoteService.js"></script>
+    <script src="app/stockApp.tableDirective.js"></script>
+</head>
+<body>
+    <h1>Stock App</h1>
+
+    <div ng-app="stockApp" ng-controller="QuotesController">
+        <stockapp-table quotes="stockQuotes.query.results.quote"></stockapp-table>
+    </div>
+</body>
+</html>
+

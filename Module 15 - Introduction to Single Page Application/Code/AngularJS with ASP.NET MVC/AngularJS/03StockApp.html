@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock App</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <!-- Big App! -->
+    <script src="bigapp/stockApp.js"></script>
+    <script src="bigapp/quotes/quotes.js"></script>
+    <script src="bigapp/quotes/quotes.controller.js"></script>
+</head>
+<body>
+    <h1>Stock App</h1>
+
+    <div ng-app="stockApp" ng-controller="QuotesController">
+        <table>
+            <thead>
+                <tr><th>Symbol</th><th>Change</th></tr>
+            </thead>
+            <thead>
+                <tr ng-repeat="quote in stockQuotes.query.results.quote">
+                    <td>{{quote.symbol}}</td><td>{{quote.Change}}</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Module 8 - AngularJS Filters</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script>
+        angular.module("simpleApp", [])
+            .controller("SimpleController", SimpleController);
+        function SimpleController($scope) {
+            $scope.data = [
+                { id: 1, name: "Widget", price: 100},
+                { id: 2, name: "DooHickey", price: 50},
+                { id: 3, name: "Thingamajig", price: 250}
+            ];
+        }
+    </script>
+</head>
+<body>
+    <h1>Module 8 - AngularJS Filters</h1>
+    <div ng-app="simpleApp" ng-controller="SimpleController">
+        Name only <input ng-model="search.name">
+        <ul>
+            <li ng-repeat="item in data | filter:search | orderBy:'price'">
+                {{item.price | currency}} {{ item.name | uppercase }}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
